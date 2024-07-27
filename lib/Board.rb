@@ -38,6 +38,8 @@ class Board
       puts "Invalid move! try again"
       return 'invalid'
     end
+
+    #Add a is_check method call
   end
 
   def to_s
