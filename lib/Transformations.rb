@@ -96,8 +96,187 @@ module Transformations
 
       end
 
+    when ['rook', 'white']
+      positions = []
+      positions += get_rook_positions(x, y, state)
+
+    when ['rook', 'black']
+      positions = []
+      positions += get_rook_positions(x, y, state)
+
+    when ['bishop', 'white']
+      positions = []
+      positions += get_bishop_positions(x, y, state)
+
+    when ['bishop', 'black']
+      positions = []
+      positions += get_bishop_positions(x, y, state)
+
+    when ['queen', 'white']
+      positions = []
+      positions += get_rook_positions(x, y, state)
+      positions += get_bishop_positions(x, y, state)
+
+    when ['queen', 'black']
+      positions = []
+      positions += get_rook_positions(x, y, state)
+      positions += get_bishop_positions(x, y, state)
+
     end
     p positions
+    return positions
+  end
+
+
+
+  # HELPER METHODS
+
+  def get_rook_positions(x, y, state)
+    positions = []
+    for i in (y..7)
+      j = x
+      if i == y
+        next
+      elsif state[i][j] == "_"
+        positions << [i,j]
+      elsif state[i][j] != "_" && state[i][j].colour != colour
+        positions << [i,j]
+        break
+      elsif state[i][j].colour == colour
+        break
+      end
+    end
+
+    y.downto(0) do |i|
+      j = x
+      if i == y
+        next
+      elsif state[i][j] == "_"
+        positions << [i,j]
+      elsif state[i][j] != "_" && state[i][j].colour != colour
+        positions << [i,j]
+        break
+      elsif state[i][j].colour == colour
+        break
+      end
+    end
+
+    for j in (x..7)
+      i = y
+      if j == x
+        next
+      elsif state[i][j] == "_"
+        positions << [i,j]
+      elsif state[i][j] != "_" && state[i][j].colour != colour
+        positions << [i,j]
+        break
+      elsif state[i][j].colour == colour
+        break
+      end
+    end
+
+    x.downto(0) do |j|
+      i = y
+      if j == y
+        next
+      elsif state[i][j] == "_"
+        positions << [i,j]
+      elsif state[i][j] != "_" && state[i][j].colour != colour
+        positions << [i,j]
+        break
+      elsif state[i][j].colour == colour
+        break
+      end
+    end
+
+    return positions
+  end
+
+  def get_bishop_positions(x, y, state)
+    positions = []
+    i = y
+    j = x
+
+    # p positions
+
+    while i <= 7 && j <= 7
+      # p positions
+      if i == y && j == x
+        i += 1
+        j += 1
+        next
+      elsif state[i][j] == '_'
+        positions << [i,j]
+      elsif state[i][j] != "_" && state[i][j].colour != colour
+        positions << [i,j]
+        break
+      elsif state[i][j].colour == colour
+        break
+      end
+      i += 1
+      j += 1
+    end
+
+    i = y
+    j = x
+    while i >= 0 && j >= 0
+      # p positions
+      if i == y && j == x
+        i -= 1
+        j -= 1
+        next
+      elsif state[i][j] == '_'
+        positions << [i,j]
+      elsif state[i][j] != "_" && state[i][j].colour != colour
+        positions << [i,j]
+        break
+      elsif state[i][j].colour == colour
+        break
+      end
+      i -= 1
+      j -= 1
+    end
+
+    i = y
+    j = x
+    while i <= 7 && j >= 0
+      # p positions
+      if i == y && j == x
+        i += 1
+        j -= 1
+        next
+      elsif state[i][j] == '_'
+        positions << [i,j]
+      elsif state[i][j] != "_" && state[i][j].colour != colour
+        positions << [i,j]
+        break
+      elsif state[i][j].colour == colour
+        break
+      end
+      i += 1
+      j -= 1
+    end
+
+    i = y
+    j = x
+    while i >= 0 && j <= 7
+      # p positions
+      if i == y && j == x
+        i -= 1
+        j += 1
+        next
+      elsif state[i][j] == '_'
+        positions << [i,j]
+      elsif state[i][j] != "_" && state[i][j].colour != colour
+        positions << [i,j]
+        break
+      elsif state[i][j].colour == colour
+        break
+      end
+      i -= 1
+      j += 1
+    end
+
     return positions
   end
 end

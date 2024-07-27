@@ -16,12 +16,14 @@ class Board
 
       @state[row] = @state[row].map() { |item| item = Piece.new('white_pawn') } if row == 1
 
-      @state[row] = @state[row].map() { |item| item = Piece.new('black_pawn') } if row == 6
+      # @state[row] = @state[row].map() { |item| item = Piece.new('black_pawn') } if row == 6
 
       @state[row] = [
         Piece.new('black_rook'), Piece.new('black_knight'), Piece.new('black_bishop'), Piece.new('black_king'),
         Piece.new('black_queen'), Piece.new('black_bishop'), Piece.new('black_knight'), Piece.new('black_rook')
       ] if row == 7
+
+      @state[row][4] = Piece.new('white_queen') if row == 4
     end
   end
 
@@ -59,4 +61,4 @@ board = Board.new()
 puts board
 # board.change_board([[0,4], [1,4]], false)
 # puts board
-board.state[7][1].get_all_moves([7,1], board.state)
+board.state[7][4].get_all_moves([7,4], board.state)
