@@ -19,8 +19,8 @@ module Transformations
 
       if (j <= 6 && state[i][j+1] != "_" && state[i][j+1].colour != colour)
         positions << [i, j+1]
-      elsif (j >= 1 && state[i][j-1] != "_" && state[i][j+1].colour != colour)
-        positions << [i, j+1]
+      elsif (j >= 1 && state[i][j-1] != "_" && state[i][j-1].colour != colour)
+        positions << [i, j-1]
       end
 
     when ['pawn', 'black']
@@ -37,8 +37,8 @@ module Transformations
 
       if (j <= 6 && state[i][j+1] != "_" && state[i][j+1].colour != colour)
         positions << [i, j+1]
-      elsif (j >= 1 && state[i][j-1] != "_" && state[i][j+1].colour != colour)
-        positions << [i, j+1]
+      elsif (j >= 1 && state[i][j-1] != "_" && state[i][j-1].colour != colour)
+        positions << [i, j-1]
       end
 
     when ['king', 'white']
@@ -72,7 +72,11 @@ module Transformations
         temp_y = i + transformation[0]
         temp_x = j + transformation[1]
         new_vertex = [temp_y, temp_x]
-        positions << new_vertex if (state[temp_y][temp_x] == "_" || state[temp_y][temp_x].colour != colour) && (0..7).include?(temp_x) && (0..7).include?(temp_y)
+        if (0..7).include?(temp_x) && (0..7).include?(temp_y)
+          if (state[temp_y][temp_x] == "_" || state[temp_y][temp_x].colour != colour)
+            positions << new_vertex
+          end
+        end
       end
 
     when ['knight', 'black']
@@ -92,7 +96,11 @@ module Transformations
         temp_y = i + transformation[0]
         temp_x = j + transformation[1]
         new_vertex = [temp_y, temp_x]
-        positions << new_vertex if (0..7).include?(temp_x) && (0..7).include?(temp_y) && (state[temp_y][temp_x] == "_" || state[temp_y][temp_x].colour != colour)
+        if (0..7).include?(temp_x) && (0..7).include?(temp_y)
+          if (state[temp_y][temp_x] == "_" || state[temp_y][temp_x].colour != colour)
+            positions << new_vertex
+          end
+        end
 
       end
 
@@ -123,7 +131,7 @@ module Transformations
       positions += get_bishop_positions(x, y, state)
 
     end
-    p positions
+    # p positions
     return positions
   end
 

@@ -33,7 +33,7 @@ class Piece
   end
 
   def get_all_moves(source, state)
-    puts "#{type}, #{colour}"
+    # puts "#{type}, #{colour}"
     get_all_positions(@type, @colour, source, state)
     # return [[2,0]] #For Mocking
   end
